@@ -1,0 +1,24 @@
+# WordPress yapılandırma (veritabanı şifresi içerir)
+wp-config.php
+
+# Yüklenen medya dosyaları
+wp-content/uploads/
+
+# WordPress önbellek
+wp-content/cache/
+wp-content/upgrade/
+
+# WordPress güncelleme
+wp-content/languages/
+
+# Log dosyaları
+*.log
+error_log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
