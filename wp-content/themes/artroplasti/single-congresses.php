@@ -36,7 +36,7 @@ get_header();
                <?php
                $congress_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
                if (empty($congress_image)) {
-                  $congress_image = get_template_directory_uri() . '/assets/images/default-blog.jpg';
+                  $congress_image = artroplasti_default_thumb();
                }
                $congress_date = get_post_meta(get_the_ID(), 'congress_date', true);
                $congress_location = get_post_meta(get_the_ID(), 'congress_location', true);
@@ -46,6 +46,16 @@ get_header();
                $congress_program_label = get_post_meta(get_the_ID(), 'congress_program_label', true);
                $congress_website_url = get_post_meta(get_the_ID(), 'congress_website_url', true);
                $congress_website_label = get_post_meta(get_the_ID(), 'congress_website_label', true);
+
+               // extra links stored as JSON
+               $congress_extra_links = [];
+               $extra_links_json = get_post_meta(get_the_ID(), 'congress_extra_links', true);
+               if (!empty($extra_links_json)) {
+                  $decoded = json_decode($extra_links_json, true);
+                  if (is_array($decoded)) {
+                     $congress_extra_links = $decoded;
+                  }
+               }
 
                if (empty($congress_site_label)) {
                   $congress_site_label = __('Web sitesi', 'artroplasti');
@@ -88,39 +98,48 @@ get_header();
                               </p>
                            <?php endif; ?>
 
-                           <div class="congress-single-actions" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                           <div class="congress-single-actions">
                               <?php if (!empty($congress_site_url)) : ?>
-                                 <a href="<?php echo esc_url($congress_site_url); ?>" class="button-btn" target="_blank" rel="noopener">
+                                 <a href="<?php echo esc_url($congress_site_url); ?>" class="congress-link-btn" target="_blank" rel="noopener">
                                     <?php echo esc_html($congress_site_label); ?>
                                  </a>
-                              <?php else : ?>
-                                 <span class="button-btn" style="opacity: 0.5; cursor: not-allowed;"><?php echo esc_html($congress_site_label); ?></span>
                               <?php endif; ?>
 
                               <?php if (!empty($congress_program_url)) : ?>
-                                 <a href="<?php echo esc_url($congress_program_url); ?>" class="button-btn" target="_blank" rel="noopener">
+                                 <a href="<?php echo esc_url($congress_program_url); ?>" class="congress-link-btn" target="_blank" rel="noopener">
                                     <?php echo esc_html($congress_program_label); ?>
                                  </a>
-                              <?php else : ?>
-                                 <span class="button-btn" style="opacity: 0.5; cursor: not-allowed;"><?php echo esc_html($congress_program_label); ?></span>
                               <?php endif; ?>
 
                               <?php if (!empty($congress_website_url)) : ?>
-                                 <a href="<?php echo esc_url($congress_website_url); ?>" class="button-btn" target="_blank" rel="noopener">
+                                 <a href="<?php echo esc_url($congress_website_url); ?>" class="congress-link-btn" target="_blank" rel="noopener">
                                     <?php echo esc_html($congress_website_label); ?>
                                  </a>
-                              <?php else : ?>
-                                 <span class="button-btn" style="opacity: 0.5; cursor: not-allowed;"><?php echo esc_html($congress_website_label); ?></span>
                               <?php endif; ?>
+
+                              <?php foreach ($congress_extra_links as $extra_link) : ?>
+                                 <?php if (!empty($extra_link['url'])) : ?>
+                                    <a href="<?php echo esc_url($extra_link['url']); ?>" class="congress-link-btn" target="_blank" rel="noopener">
+                                       <?php echo esc_html($extra_link['label']); ?>
+                                    </a>
+                                 <?php endif; ?>
+                              <?php endforeach; ?>
                            </div>
                         </div>
                      </div>
                   </div>
 
-                  <div class="congress-single-content mt-5">
+                  <div class="congress-single-content mt-4">
+                     <?php
+                     $content = get_the_content();
+                     // strip legacy auto-generated plain-text content (empty or only whitespace/p tags)
+                     $stripped = wp_strip_all_tags($content);
+                     if (!empty(trim($stripped))) :
+                     ?>
                      <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                         <?php the_content(); ?>
                      </div>
+                     <?php endif; ?>
                   </div>
 
                   <?php

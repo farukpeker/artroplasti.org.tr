@@ -168,7 +168,9 @@
                                         } 
                                         // Polylang Support
                                         elseif (function_exists('pll_the_languages')) {
+                                            echo '<ul class="language-list">';
                                             pll_the_languages(array('show_flags' => 1, 'show_names' => 1));
+                                            echo '</ul>';
                                         }
                                         // Fallback: Simple language switcher
                                         else {

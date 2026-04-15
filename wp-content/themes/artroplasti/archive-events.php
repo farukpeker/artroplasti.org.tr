@@ -125,7 +125,7 @@ $selected_year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
                                 $event_image = get_the_post_thumbnail_url($event_id, 'medium');
                                 
                                 if (empty($event_image)) {
-                                    $event_image = get_template_directory_uri() . '/assets/images/default-blog.jpg';
+                                    $event_image = artroplasti_default_thumb();
                                 }
 
                                 $start_formatted = date_i18n('d.m.Y', strtotime($event_start));

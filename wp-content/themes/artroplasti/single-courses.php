@@ -36,7 +36,7 @@ get_header();
                <?php
                $course_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
                if (empty($course_image)) {
-                  $course_image = get_template_directory_uri() . '/assets/images/default-blog.jpg';
+                  $course_image = artroplasti_default_thumb();
                }
                $course_link = get_post_meta(get_the_ID(), 'course_external_url', true);
                if (empty($course_link)) {
@@ -150,13 +150,6 @@ get_header();
                      endif;
                      ?>
                   </ul>
-               </div>
-
-               <!-- Courses Archive Link -->
-               <div class="sidebar-widget" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>" class="button-btn" style="display: block; text-align: center; width: 100%;">
-                     <?php echo esc_html__('Tüm Kurslar', 'artroplasti'); ?>
-                  </a>
                </div>
             </div>
          </div>

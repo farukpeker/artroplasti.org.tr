@@ -36,7 +36,7 @@ get_header();
                <?php
                $event_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
                if (empty($event_image)) {
-                  $event_image = get_template_directory_uri() . '/assets/images/default-blog.jpg';
+                  $event_image = artroplasti_default_thumb();
                }
                $event_start = get_post_meta(get_the_ID(), 'event_start_date', true);
                $event_end = get_post_meta(get_the_ID(), 'event_end_date', true);

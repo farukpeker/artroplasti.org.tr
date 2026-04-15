@@ -126,7 +126,7 @@ get_header();
                   <div class="webinar-navigation mt-5 pt-5" style="border-top: 1px solid #eee;">
                      <div class="row">
                         <div class="col-md-6">
-                           <a href="<?php echo esc_url(get_post_type_archive_link('webinars')); ?>" class="button-btn" style="display: inline-block; background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                           <a href="<?php echo esc_url(get_post_type_archive_link('webinars')); ?>" class="button-btn">
                               <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
                               <?php echo esc_html__('Tüm Webinarlar', 'artroplasti'); ?>
                            </a>

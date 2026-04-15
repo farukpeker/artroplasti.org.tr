@@ -14,8 +14,8 @@ get_header();
          $slider_query = new WP_Query(array(
             'post_type'      => 'banner_slide',
             'posts_per_page' => -1,
-            'orderby'        => 'menu_order',
-            'order'          => 'ASC',
+            'orderby'        => 'date',
+            'order'          => 'DESC',
          ));
 
          if ($slider_query->have_posts()) :
@@ -99,7 +99,7 @@ get_header();
                         );
                         ?>
                      <?php else : ?>
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/default-blog.jpg'); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
+                        <img src="<?php echo esc_url(artroplasti_default_thumb()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
                      <?php endif; ?>
                      <div class="img-overlay"></div>
                      <?php
@@ -534,7 +534,6 @@ get_header();
                            <?php endif; ?>
                            <div class="content flex-grow-1 featured-card-content">
                               <h5><?php echo esc_html(get_the_title()); ?></h5>
-                              <a href="<?php echo esc_url($item_link); ?>"<?php echo $target; ?>><?php echo esc_html__('İncele', 'artroplasti'); ?> +</a>
                            </div>
                         </div>
                      </div>

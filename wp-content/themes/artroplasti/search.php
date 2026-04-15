@@ -41,17 +41,7 @@ get_header();
                      <?php while (have_posts()) : the_post(); ?>
                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
                            <div class="search-result-item" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); height: 100%; display: flex; flex-direction: column;">
-                              <?php 
-                              $post_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
-                              if (!empty($post_image)) :
-                              ?>
-                              <div class="search-result-image mb-3">
-                                 <a href="<?php echo esc_url(get_permalink()); ?>">
-                                    <img src="<?php echo esc_url($post_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" style="width: 100%; border-radius: 6px; object-fit: cover; aspect-ratio: 4/3;">
-                                 </a>
-                              </div>
-                              <?php endif; ?>
-
+                             
                               <div class="search-result-content" style="flex-grow: 1; display: flex; flex-direction: column;">
                                  <div class="search-result-meta" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 12px; color: #999; flex-wrap: wrap; gap: 8px;">
                                     <span>
@@ -70,8 +60,8 @@ get_header();
                                     <?php echo esc_html(wp_trim_words(get_the_excerpt(), 15, '...')); ?>
                                  </div>
 
-                                 <a href="<?php echo esc_url(get_permalink()); ?>" class="button-btn ">
-                                    <?php echo esc_html__('Devamını Oku', 'artroplasti'); ?>
+                                 <a href="<?php echo esc_url(get_permalink()); ?>" class="r-btn" style="align-self: flex-start;">
+                                    <?php echo esc_html__('Görüntüle', 'artroplasti'); ?>
                                     <span><i class="fas fa-angle-right"></i></span>
                                  </a>
                               </div>

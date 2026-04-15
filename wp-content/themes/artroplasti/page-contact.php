@@ -7,6 +7,41 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// ── Handle form submission ───────────────────────────────────────────────────
+$contact_sent  = false;
+$contact_error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_nonce'])) {
+    if (!wp_verify_nonce($_POST['contact_nonce'], 'artroplasti_contact')) {
+        $contact_error = __('Güvenlik doğrulaması başarısız. Lütfen tekrar deneyin.', 'artroplasti');
+    } else {
+        $name    = sanitize_text_field($_POST['contact_name'] ?? '');
+        $email   = sanitize_email($_POST['contact_email'] ?? '');
+        $subject = sanitize_text_field($_POST['contact_subject'] ?? '');
+        $message = sanitize_textarea_field($_POST['contact_message'] ?? '');
+
+        if (empty($name) || empty($email) || empty($message)) {
+            $contact_error = __('Lütfen tüm zorunlu alanları doldurun.', 'artroplasti');
+        } elseif (!is_email($email)) {
+            $contact_error = __('Geçerli bir e-posta adresi girin.', 'artroplasti');
+        } else {
+            $to      = get_theme_mod('artroplasti_contact_email', get_option('admin_email'));
+            $headers = [
+                'Content-Type: text/plain; charset=UTF-8',
+                'From: ' . $name . ' <' . $email . '>',
+                'Reply-To: ' . $email,
+            ];
+            $body    = "Ad Soyad: {$name}\nE-posta: {$email}\n\n{$message}";
+            $sent    = wp_mail($to, $subject ?: __('İletişim Formu Mesajı', 'artroplasti'), $body, $headers);
+            if ($sent) {
+                $contact_sent = true;
+            } else {
+                $contact_error = __('Mesaj gönderilemedi. Lütfen tekrar deneyin.', 'artroplasti');
+            }
+        }
+    }
+}
+
 get_header();
 ?>
 
@@ -90,11 +125,44 @@ get_header();
                 <div class="form-section">
                     <h6 class="text-white"><?php echo esc_html__('İletişim Formu', 'artroplasti'); ?></h6>
                     <div class="form-input plr-15">
-                        <?php
-                        while (have_posts()) : the_post();
-                            the_content();
-                        endwhile;
-                        ?>
+                        <?php if ($contact_sent) : ?>
+                           <div class="contact-success-msg">
+                              <i class="fas fa-check-circle"></i>
+                              <?php echo esc_html__('Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapacağız.', 'artroplasti'); ?>
+                           </div>
+                        <?php else : ?>
+                           <?php if ($contact_error) : ?>
+                              <div class="contact-error-msg"><?php echo esc_html($contact_error); ?></div>
+                           <?php endif; ?>
+                           <form method="post" class="contact-form" novalidate>
+                              <?php wp_nonce_field('artroplasti_contact', 'contact_nonce'); ?>
+                              <div class="row">
+                                 <div class="col-sm-6">
+                                    <div class="contact-field">
+                                       <label for="contact_name"><?php echo esc_html__('Ad Soyad', 'artroplasti'); ?> <span>*</span></label>
+                                       <input type="text" id="contact_name" name="contact_name" value="<?php echo esc_attr($_POST['contact_name'] ?? ''); ?>" required>
+                                    </div>
+                                 </div>
+                                 <div class="col-sm-6">
+                                    <div class="contact-field">
+                                       <label for="contact_email"><?php echo esc_html__('E-posta', 'artroplasti'); ?> <span>*</span></label>
+                                       <input type="email" id="contact_email" name="contact_email" value="<?php echo esc_attr($_POST['contact_email'] ?? ''); ?>" required>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="contact-field">
+                                 <label for="contact_subject"><?php echo esc_html__('Konu', 'artroplasti'); ?></label>
+                                 <input type="text" id="contact_subject" name="contact_subject" value="<?php echo esc_attr($_POST['contact_subject'] ?? ''); ?>">
+                              </div>
+                              <div class="contact-field">
+                                 <label for="contact_message"><?php echo esc_html__('Mesajınız', 'artroplasti'); ?> <span>*</span></label>
+                                 <textarea id="contact_message" name="contact_message" rows="6" required><?php echo esc_textarea($_POST['contact_message'] ?? ''); ?></textarea>
+                              </div>
+                              <button type="submit" class="button-btn contact-submit">
+                                 <?php echo esc_html__('Gönder', 'artroplasti'); ?>
+                              </button>
+                           </form>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

@@ -8,22 +8,24 @@
     $(document).ready(function() {
         var languageSelector = $('.language-selector');
         var languageToggle = $('.language-toggle');
+        var languageDropdown = languageSelector.find('.language-dropdown');
 
         languageToggle.on('click', function(e) {
             e.preventDefault();
-            languageSelector.toggleClass('active');
+            e.stopPropagation();
+            languageDropdown.slideToggle(200);
         });
 
         // Close dropdown when clicking outside
         $(document).on('click', function(e) {
             if (!$(e.target).closest('.language-selector').length) {
-                languageSelector.removeClass('active');
+                languageDropdown.slideUp(200);
             }
         });
 
         // Close dropdown when a language is selected
-        $('.language-dropdown a').on('click', function() {
-            languageSelector.removeClass('active');
+        languageDropdown.on('click', 'a', function() {
+            languageDropdown.slideUp(200);
         });
     });
 

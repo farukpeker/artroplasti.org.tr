@@ -982,26 +982,18 @@ header css
 }
 
 .main-header-wrapper .sb-main-header .mid-header-section .language-dropdown {
+  display: none;
   position: absolute;
   top: 100%;
   right: 0;
+  min-width: 160px;
   background-color: #ffffff;
   border: none;
   border-radius: 12px;
-  margin-top: 12px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px) scale(0.95);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  margin-top: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-  z-index: 1000;
+  z-index: 9999;
   overflow: hidden;
-}
-
-.main-header-wrapper .sb-main-header .mid-header-section .language-selector.active .language-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
 }
 
 .main-header-wrapper .sb-main-header .mid-header-section .language-list {
@@ -1049,6 +1041,39 @@ header css
 }
 
 .main-header-wrapper .sb-main-header .mid-header-section .language-list li a.active {
+  background-color: #f5f5f5;
+  color: #B81838;
+  font-weight: 600;
+}
+
+/* Polylang Language Selector Support */
+.main-header-wrapper .sb-main-header .mid-header-section .language-list .lang-item {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.main-header-wrapper .sb-main-header .mid-header-section .language-list .lang-item:last-child {
+  border-bottom: none;
+}
+
+.main-header-wrapper .sb-main-header .mid-header-section .language-list .lang-item a {
+  padding: 14px 20px;
+  color: #333333;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  font-weight: 500;
+}
+
+.main-header-wrapper .sb-main-header .mid-header-section .language-list .lang-item a:hover {
+  color: #B81838;
+}
+
+.main-header-wrapper .sb-main-header .mid-header-section .language-list .lang-item.current-lang a {
   background-color: #f5f5f5;
   color: #B81838;
   font-weight: 600;
@@ -1391,7 +1416,7 @@ Banner section css
   position: relative;
   width: 100%;
   height: auto;
-  position: relative;
+  overflow: hidden;
 }
 
 .banner-section-wrapper .banner-slide-link {
@@ -1409,7 +1434,6 @@ Banner section css
   width: 100%;
   height: auto;
   display: block;
-  object-fit: contain;
 }
 
 .banner-section-wrapper .banner-slide-content {
@@ -2528,6 +2552,7 @@ Services section
 
 .blog-box {
   padding-top: 40px;
+  width: 100%;
 }
 
 .blog-box .img-icon {
@@ -2835,6 +2860,65 @@ Services section
   padding-left: 45px;
 }
 
+/* ── Native contact form ── */
+.contact-form .contact-field {
+  margin-bottom: 18px;
+}
+.contact-form .contact-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+.contact-form .contact-field label span {
+  color: #B81838;
+}
+.contact-form .contact-field input,
+.contact-form .contact-field textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #333;
+  background: #fafafa;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.contact-form .contact-field input:focus,
+.contact-form .contact-field textarea:focus {
+  border-color: #B81838;
+  background: #fff;
+}
+.contact-form .contact-field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+.contact-form .contact-submit {
+  margin-top: 6px;
+}
+.contact-success-msg {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  color: #2e7d32;
+  border-radius: 6px;
+  padding: 16px 20px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-error-msg {
+  background: #fdecea;
+  border: 1px solid #ef9a9a;
+  color: #c62828;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
 .kc-card {
   background-color: #ebf5f5;
   padding: 30px;
@@ -3000,34 +3084,36 @@ Services section
 }
 
 .footer-main-wrapper .img-link ul li {
-  padding-bottom: 20px;
+  padding-bottom: 14px;
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
 .footer-main-wrapper .img-link ul li img {
-  max-height: 105px;
-  max-width: 105px;
-  width: 105px;
-  height: auto;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
   object-fit: cover;
-  margin-right: 15px;
+  border-radius: 4px;
 }
 
 .footer-main-wrapper .img-link ul li .content {
-  line-height: 18px;
+  line-height: 1.4;
+  flex: 1;
 }
 
 .footer-main-wrapper .img-link ul li .content p {
   color: #ffffff;
 }
 .footer-main-wrapper .img-link ul li .content h5 {
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 .footer-main-wrapper .img-link ul li .content h5 a {
   color: #ffffff;
   display: inline-block;
-  font-size: 16px;
+  font-size: 13px;
+  line-height: 1.4;
 }
 .footer-main-wrapper .img-link ul li .content h5 a:hover {
   color: #B81838;
@@ -9254,6 +9340,155 @@ ul {
 .gallery2-wrapper .portfolio_img_text a {
   padding: 10px;
   font-size: 12px;
+}
+
+/* =========================================================
+   Congress link buttons (outline pill style)
+   ========================================================= */
+.congress-link-btn {
+  display: inline-block;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  border: 1.5px solid #bbb;
+  border-radius: 20px;
+  background: #fff;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.congress-link-btn:hover {
+  background: #B81838;
+  border-color: #B81838;
+  color: #fff;
+  text-decoration: none;
+}
+.congress-link-btn--detail {
+  border-color: #B81838;
+  color: #B81838;
+}
+.congress-link-btn--detail:hover {
+  background: #B81838;
+  color: #fff;
+}
+
+/* =========================================================
+   Congress archive list cards (image left / content right)
+   ========================================================= */
+.congresses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.congress-archive-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.congress-archive-card-inner {
+  display: flex;
+  align-items: stretch;
+  min-height: 180px;
+}
+
+.congress-archive-img {
+  flex: 0 0 220px;
+  width: 220px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+.congress-archive-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.congress-archive-body {
+  flex: 1;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.congress-archive-title-bar {
+  background: #e8f4fb;
+  border-radius: 6px;
+  padding: 10px 16px;
+}
+.congress-archive-title-bar h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a2e44;
+  text-align: center;
+}
+
+.congress-archive-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.congress-meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+}
+.congress-meta-row i {
+  width: 16px;
+  text-align: center;
+  color: #999;
+  flex-shrink: 0;
+}
+.congress-meta-row i.fa-map-marker-alt {
+  color: #e91e63;
+}
+.congress-meta-label {
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.congress-meta-value {
+  color: #555;
+}
+
+.congress-archive-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Single congress actions */
+.congress-single-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .congress-archive-card-inner {
+    flex-direction: column;
+  }
+  .congress-archive-img {
+    flex: none;
+    width: 100%;
+    height: 200px;
+  }
+  .congress-archive-title-bar h2 {
+    font-size: 16px;
+  }
+}
   border: 1px solid #B81838;
   color: #B81838;
 }

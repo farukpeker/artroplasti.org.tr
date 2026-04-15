@@ -16,9 +16,15 @@ $htmlDir = $baseDir . '/haber-icerik';
 $imageDir = $baseDir . '/haber-gorsel';
 
 $limit = 50;
+$fallbackImage = '';
 foreach ($argv as $arg) {
     if (strpos($arg, '--limit=') === 0) {
         $limit = max(1, (int) substr($arg, 8));
+        continue;
+    }
+
+    if (strpos($arg, '--fallback-image=') === 0) {
+        $fallbackImage = trim((string) substr($arg, 17));
     }
 }
 
@@ -151,6 +157,7 @@ $posts = get_posts([
 
 $processed = 0;
 $assigned = 0;
+$fallbackAssigned = 0;
 $skipped = 0;
 
 foreach ($posts as $post) {
@@ -178,6 +185,10 @@ foreach ($posts as $post) {
         $matchFile = find_best_by_title($post->post_title, $imageFiles);
     }
 
+    if (!$matchFile && $fallbackImage !== '' && file_exists($imageDir . '/' . $fallbackImage)) {
+        $matchFile = $fallbackImage;
+    }
+
     if (!$matchFile) {
         $processed++;
         $skipped++;
@@ -189,6 +200,9 @@ foreach ($posts as $post) {
     if ($attachmentId > 0) {
         set_post_thumbnail((int) $post->ID, $attachmentId);
         $assigned++;
+        if ($fallbackImage !== '' && $matchFile === $fallbackImage) {
+            $fallbackAssigned++;
+        }
         echo "OK {$post->ID} | {$post->post_title} | {$matchFile} | thumb {$attachmentId}\n";
     } else {
         $skipped++;
@@ -198,4 +212,4 @@ foreach ($posts as $post) {
     $processed++;
 }
 
-echo "Tamamlandı | limit={$limit} | işlenen={$processed} | atanan={$assigned} | atlanan={$skipped}\n";
+echo "Tamamlandı | limit={$limit} | işlenen={$processed} | atanan={$assigned} | fallback_atanan={$fallbackAssigned} | atlanan={$skipped}\n";

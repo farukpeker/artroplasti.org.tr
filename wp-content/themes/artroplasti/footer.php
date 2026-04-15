@@ -111,7 +111,7 @@ $footer_logo_alt = $footer_logo_id ? get_post_meta($footer_logo_id, '_wp_attachm
                   
                   foreach ($recent_posts as $post) {
                      $post_id = $post['ID'];
-                     $thumbnail = get_the_post_thumbnail_url($post_id, 'thumbnail') ?: $theme_uri . '/assets/images/post-img1.jpg';
+                     $thumbnail = get_the_post_thumbnail_url($post_id, 'thumbnail') ?: artroplasti_default_thumb();
                      ?>
                      <li>
                         <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($post['post_title']); ?>">

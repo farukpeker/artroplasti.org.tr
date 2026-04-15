@@ -7,6 +7,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Returns the default thumbnail URL used site-wide when a post has no featured image.
+ */
+function artroplasti_default_thumb(): string {
+    return wp_upload_dir()['baseurl'] . '/2026/04/default.jpg';
+}
 // Theme setup
 // Add query string support for calendar template
 function artroplasti_query_vars( $query_vars ) {
@@ -385,6 +391,89 @@ function artroplasti_save_blog_date_meta($post_id) {
     }
 }
 add_action('save_post', 'artroplasti_save_blog_date_meta');
+
+// Blog PDF Upload Meta Box
+function artroplasti_add_blog_pdf_metabox() {
+    add_meta_box(
+        'artroplasti_blog_pdf_meta',
+        __('PDF Dosyası (İsteğe Bağlı)', 'artroplasti'),
+        'artroplasti_render_blog_pdf_metabox',
+        'post',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'artroplasti_add_blog_pdf_metabox');
+
+function artroplasti_render_blog_pdf_metabox($post) {
+    wp_nonce_field('artroplasti_blog_pdf_meta_nonce', 'artroplasti_blog_pdf_meta_nonce');
+    $pdf_url = get_post_meta($post->ID, 'blog_pdf_url', true);
+    ?>
+    <p>
+        <label for="blog_pdf_url"><strong><?php echo esc_html__('PDF URL', 'artroplasti'); ?></strong></label>
+        <input type="text" id="blog_pdf_url" name="blog_pdf_url" value="<?php echo esc_attr($pdf_url); ?>" class="widefat" placeholder="https://..." style="margin-bottom: 6px;">
+        <button type="button" class="button" id="artroplasti_pdf_upload_btn"><?php echo esc_html__('PDF Seç / Yükle', 'artroplasti'); ?></button>
+        <?php if (!empty($pdf_url)) : ?>
+            <span style="margin-left:10px;"><a href="<?php echo esc_url($pdf_url); ?>" target="_blank"><?php echo esc_html__('Mevcut PDF\'yi Görüntüle', 'artroplasti'); ?></a></span>
+        <?php endif; ?>
+        <br><small><?php echo esc_html__('Boş bırakılırsa PDF butonu görünmez.', 'artroplasti'); ?></small>
+    </p>
+    <script>
+    jQuery(function($) {
+        var mediaFrame;
+        $('#artroplasti_pdf_upload_btn').on('click', function(e) {
+            e.preventDefault();
+            if (mediaFrame) {
+                mediaFrame.open();
+                return;
+            }
+            mediaFrame = wp.media({
+                title: '<?php echo esc_js(__('PDF Seç', 'artroplasti')); ?>',
+                button: { text: '<?php echo esc_js(__('Seç', 'artroplasti')); ?>' },
+                library: { type: 'application/pdf' },
+                multiple: false
+            });
+            mediaFrame.on('select', function() {
+                var attachment = mediaFrame.state().get('selection').first().toJSON();
+                $('#blog_pdf_url').val(attachment.url);
+            });
+            mediaFrame.open();
+        });
+    });
+    </script>
+    <?php
+}
+
+function artroplasti_save_blog_pdf_meta($post_id) {
+    if (!isset($_POST['artroplasti_blog_pdf_meta_nonce'])) {
+        return;
+    }
+    if (!wp_verify_nonce($_POST['artroplasti_blog_pdf_meta_nonce'], 'artroplasti_blog_pdf_meta_nonce')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (isset($_POST['post_type']) && $_POST['post_type'] === 'post') {
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
+    }
+    if (isset($_POST['blog_pdf_url'])) {
+        $pdf_url = esc_url_raw(trim($_POST['blog_pdf_url']));
+        update_post_meta($post_id, 'blog_pdf_url', $pdf_url);
+    }
+}
+add_action('save_post', 'artroplasti_save_blog_pdf_meta');
+
+// Enqueue WP media library script on post edit screens
+function artroplasti_enqueue_admin_media($hook) {
+    if (!in_array($hook, array('post.php', 'post-new.php'), true)) {
+        return;
+    }
+    wp_enqueue_media();
+}
+add_action('admin_enqueue_scripts', 'artroplasti_enqueue_admin_media');
 
 // Congress Meta Box
 function artroplasti_add_congress_metabox() {

@@ -36,7 +36,7 @@ get_header();
                <?php
                $blog_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
                if (empty($blog_image)) {
-                  $blog_image = get_template_directory_uri() . '/assets/images/default-blog.jpg';
+                  $blog_image = artroplasti_default_thumb();
                }
                $manual_date = get_post_meta(get_the_ID(), 'blog_manual_date', true);
                $comments_count = get_comments_number();
@@ -57,6 +57,17 @@ get_header();
                         <div class="post-body">
                            <?php the_content(); ?>
                         </div>
+
+                        <?php
+                        $pdf_url = get_post_meta(get_the_ID(), 'blog_pdf_url', true);
+                        if (!empty($pdf_url)) : ?>
+                        <div class="post-pdf-download" style="margin-top: 24px;">
+                           <a href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener" class="btn btn-danger" style="display:inline-flex; align-items:center; gap:8px; background:#B81838; color:#fff; padding:10px 22px; border-radius:6px; text-decoration:none; font-weight:600; font-size:14px;">
+                              <i class="fas fa-file-pdf"></i>
+                              <?php echo esc_html__('Detaylı Bilgi İçin', 'artroplasti'); ?>
+                           </a>
+                        </div>
+                        <?php endif; ?>
                      </div>
                   </div>
                </div>
@@ -80,12 +91,12 @@ get_header();
                </div>
 
                     <div class="form-section">
-                        <h6><?php echo esc_html__('Son Yazılar', 'artroplasti'); ?></h6>
+                        <h6><?php echo esc_html__('Son Haberler', 'artroplasti'); ?></h6>
                         <section>
                             <?php
                             $recent_posts = new WP_Query(array(
                                 'post_type'      => 'post',
-                                'posts_per_page' => 4,
+                                'posts_per_page' => 6,
                                 'orderby'        => 'date',
                                 'order'          => 'DESC',
                             ));
@@ -95,7 +106,7 @@ get_header();
                                     $recent_posts->the_post();
                                     $recent_image = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail');
                                     if (empty($recent_image)) {
-                                        $recent_image = get_template_directory_uri() . '/assets/images/default-blog.jpg';
+                                        $recent_image = artroplasti_default_thumb();
                                     }
                             ?>
                             <div class="post-main-container hr-line">
@@ -114,23 +125,6 @@ get_header();
                             ?>
                         </section>
                     </div>
-
-               <div class="form-section">
-                  <h6><?php echo esc_html__('Kategoriler', 'artroplasti'); ?></h6>
-                  <section>
-                     <ul class="categories">
-                        <?php
-                        $categories = get_categories();
-                        foreach ($categories as $category) :
-                        ?>
-                           <li>
-                              <span><i class="fas fa-angle-double-right"></i></span>
-                              <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"><?php echo esc_html($category->name); ?></a>
-                           </li>
-                        <?php endforeach; ?>
-                     </ul>
-                  </section>
-               </div>
             </div>
          </div>
       </div>
