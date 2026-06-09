@@ -123,46 +123,11 @@ get_header();
             </div>
             <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="form-section">
-                    <h6 class="text-white"><?php echo esc_html__('İletişim Formu', 'artroplasti'); ?></h6>
+                    <h6 class="text-white"><?php echo esc_html__('Contact Form', 'artroplasti'); ?></h6>
                     <div class="form-input plr-15">
-                        <?php if ($contact_sent) : ?>
-                           <div class="contact-success-msg">
-                              <i class="fas fa-check-circle"></i>
-                              <?php echo esc_html__('Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapacağız.', 'artroplasti'); ?>
-                           </div>
-                        <?php else : ?>
-                           <?php if ($contact_error) : ?>
-                              <div class="contact-error-msg"><?php echo esc_html($contact_error); ?></div>
-                           <?php endif; ?>
-                           <form method="post" class="contact-form" novalidate>
-                              <?php wp_nonce_field('artroplasti_contact', 'contact_nonce'); ?>
-                              <div class="row">
-                                 <div class="col-sm-6">
-                                    <div class="contact-field">
-                                       <label for="contact_name"><?php echo esc_html__('Ad Soyad', 'artroplasti'); ?> <span>*</span></label>
-                                       <input type="text" id="contact_name" name="contact_name" value="<?php echo esc_attr($_POST['contact_name'] ?? ''); ?>" required>
-                                    </div>
-                                 </div>
-                                 <div class="col-sm-6">
-                                    <div class="contact-field">
-                                       <label for="contact_email"><?php echo esc_html__('E-posta', 'artroplasti'); ?> <span>*</span></label>
-                                       <input type="email" id="contact_email" name="contact_email" value="<?php echo esc_attr($_POST['contact_email'] ?? ''); ?>" required>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="contact-field">
-                                 <label for="contact_subject"><?php echo esc_html__('Konu', 'artroplasti'); ?></label>
-                                 <input type="text" id="contact_subject" name="contact_subject" value="<?php echo esc_attr($_POST['contact_subject'] ?? ''); ?>">
-                              </div>
-                              <div class="contact-field">
-                                 <label for="contact_message"><?php echo esc_html__('Mesajınız', 'artroplasti'); ?> <span>*</span></label>
-                                 <textarea id="contact_message" name="contact_message" rows="6" required><?php echo esc_textarea($_POST['contact_message'] ?? ''); ?></textarea>
-                              </div>
-                              <button type="submit" class="button-btn contact-submit">
-                                 <?php echo esc_html__('Gönder', 'artroplasti'); ?>
-                              </button>
-                           </form>
-                        <?php endif; ?>
+                        <div class="contact-form-cf7">
+                           <?php echo do_shortcode('[contact-form-7 id="32d429b" title="Contact form En"]'); ?>
+                        </div>
                     </div>
                 </div>
             </div>

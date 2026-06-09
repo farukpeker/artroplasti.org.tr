@@ -30,6 +30,25 @@ function artroplasti_fix_calendar_404() {
     }
 }
 add_action( 'template_redirect', 'artroplasti_fix_calendar_404' );
+
+function artroplasti_events_english_rewrite() {
+    add_rewrite_rule('^en/events/?$', 'index.php?post_type=events&lang=en', 'top');
+    add_rewrite_rule('^en/events/page/([0-9]+)/?$', 'index.php?post_type=events&lang=en&paged=$matches[1]', 'top');
+}
+add_action('init', 'artroplasti_events_english_rewrite', 20);
+
+function artroplasti_redirect_english_events_archive() {
+    if (function_exists('artroplasti_is_english_context') && artroplasti_is_english_context() && is_post_type_archive('events')) {
+        $path = trim((string) wp_parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+        if (str_ends_with($path, 'en/etkinlikler')) {
+            $query = $_SERVER['QUERY_STRING'] ?? '';
+            wp_safe_redirect(home_url('/en/events/') . ($query ? '?' . $query : ''), 301);
+            exit;
+        }
+    }
+}
+add_action('template_redirect', 'artroplasti_redirect_english_events_archive', 1);
+
 function artroplasti_setup() {
     // Make theme available for translation
     load_theme_textdomain('artroplasti', get_template_directory() . '/languages');
@@ -71,6 +90,158 @@ function artroplasti_setup() {
 }
 add_action('after_setup_theme', 'artroplasti_setup');
 
+function artroplasti_is_english_context(): bool {
+    if (function_exists('pll_current_language')) {
+        return pll_current_language('slug') === 'en';
+    }
+
+    return strpos(strtolower(get_locale()), 'en') === 0;
+}
+
+function artroplasti_force_english_theme_strings($translation, $text, $domain) {
+    if ($domain !== 'artroplasti' || !artroplasti_is_english_context()) {
+        return $translation;
+    }
+
+    $strings = array(
+        'Haberler, Duyurular ve Güncellemeler' => 'News, Announcements and Updates',
+        'Haberler, Duyurular ve GÃ¼ncellemeler' => 'News, Announcements and Updates',
+        'Artroplasti Derneği\'nin en son haberlerini ve duyurularını takip edin.' => 'Follow the latest news and announcements from the Arthroplasty Association.',
+        'Artroplasti DerneÄŸi\'nin en son haberlerini ve duyurularÄ±nÄ± takip edin.' => 'Follow the latest news and announcements from the Arthroplasty Association.',
+        'Devamı' => 'Read More',
+        'DevamÄ±' => 'Read More',
+        'Devamını Oku' => 'Read More',
+        'DevamÄ±nÄ± Oku' => 'Read More',
+        'Tüm Arşivi Görüntüle' => 'View Full Archive',
+        'TÃ¼m ArÅŸivi GÃ¶rÃ¼ntÃ¼le' => 'View Full Archive',
+        'Henüz blog yazısı eklenmemiş.' => 'No blog posts have been added yet.',
+        'HenÃ¼z blog yazÄ±sÄ± eklenmemiÅŸ.' => 'No blog posts have been added yet.',
+        'Gelecek Kongremiz' => 'Our Upcoming Congress',
+        'Tarih:' => 'Date:',
+        'Yer:' => 'Location:',
+        'Toplantı Web Sitesi (Yakında)' => 'Meeting Website (Coming Soon)',
+        'ToplantÄ± Web Sitesi (YakÄ±nda)' => 'Meeting Website (Coming Soon)',
+        'Kongre Programı (Yakında)' => 'Congress Program (Coming Soon)',
+        'Kongre ProgramÄ± (YakÄ±nda)' => 'Congress Program (Coming Soon)',
+        'Web sitesi' => 'Website',
+        'Tam Takvimi Gör' => 'View Full Calendar',
+        'Tam Takvimi GÃ¶r' => 'View Full Calendar',
+        'Tüm Kurslar' => 'All Courses',
+        'TÃ¼m Kurslar' => 'All Courses',
+        'Kurslar' => 'Courses',
+        'Henüz kurs eklenmemiş.' => 'No courses have been added yet.',
+        'HenÃ¼z kurs eklenmemiÅŸ.' => 'No courses have been added yet.',
+        'İncele' => 'View',
+        'Ä°ncele' => 'View',
+        'Sizin için Seçtiklerimiz' => 'Our Selection for You',
+        'Sizin iÃ§in SeÃ§tiklerimiz' => 'Our Selection for You',
+        'Site Haritası' => 'Site Map',
+        'Son Yazılar' => 'Recent Posts',
+        'Çalışma Saatleri' => 'Working Hours',
+        'Hafta içi: 09:00 - 18:00' => 'Weekdays: 09:00 - 18:00',
+        'Hafta sonu: 10:00 - 16:00' => 'Weekend: 10:00 - 16:00',
+        'Bültene Kaydol' => 'Subscribe to Newsletter',
+        'Güncel haberleri ve duyuruları almak için e-habere abone olun. Yeni gelişmelerden haberdar olun.' => 'Subscribe to receive current news and announcements. Stay informed about new updates.',
+        'E-posta adresi' => 'Email address',
+        'Arama yap' => 'Search',
+        'Arama' => 'Search',
+        'Arama yapın...' => 'Search...',
+        'Belki Aramak İstersiniz?' => 'Would you like to search?',
+        'Arama Sonuçları: %s' => 'Search Results: %s',
+        '"%s" için %d sonuç bulundu' => '%2$d results found for "%1$s"',
+        'Görüntüle' => 'View',
+        'Sonuç Bulunamadı' => 'No Results Found',
+        '"%s" için arama sonucu bulunamadı. Lütfen başka bir arama terimi deneyin.' => 'No search results were found for "%s". Please try another search term.',
+        'Arama yapın...' => 'Search...',
+        'Arama yapÄ±n...' => 'Search...',
+        'Belki Aramak İstersiniz?' => 'Would you like to search?',
+        'Belki Aramak Ä°stersiniz?' => 'Would you like to search?',
+        'Arama Sonuçları: %s' => 'Search Results: %s',
+        '404 - Sayfa Bulunamadı' => '404 - Page Not Found',
+        '"%s" iÃ§in %d sonuÃ§ bulundu' => '%2$d results found for "%1$s"',
+        'GÃ¶rÃ¼ntÃ¼le' => 'View',
+        'SonuÃ§ BulunamadÄ±' => 'No Results Found',
+        '"%s" iÃ§in arama sonucu bulunamadÄ±. LÃ¼tfen baÅŸka bir arama terimi deneyin.' => 'No search results were found for "%s". Please try another search term.',
+        '404 - Sayfa BulunamadÄ±' => '404 - Page Not Found',
+        'Üzgünüz, Sayfa Bulunamadı!' => 'Sorry, Page Not Found!',
+        'ÃœzgÃ¼nÃ¼z, Sayfa BulunamadÄ±!' => 'Sorry, Page Not Found!',
+        'Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir.' => 'The page you are looking for may have been removed, renamed, or may be temporarily unavailable.',
+        'AradÄ±ÄŸÄ±nÄ±z sayfa kaldÄ±rÄ±lmÄ±ÅŸ, adÄ± deÄŸiÅŸtirilmiÅŸ veya geÃ§ici olarak kullanÄ±lamÄ±yor olabilir.' => 'The page you are looking for may have been removed, renamed, or may be temporarily unavailable.',
+        'Ana Sayfaya Dön' => 'Back to Home',
+        'Anasayfa' => 'Home',
+        'Ana Sayfa' => 'Home',
+        'Anasayfaya DÃ¶n' => 'Back to Home',
+        'Anasayfaya DÃƒÂ¶n' => 'Back to Home',
+        'Ana Sayfaya DÃ¶n' => 'Back to Home',
+        'Geri Dön' => 'Go Back',
+        'Geri DÃ¶n' => 'Go Back',
+        'Etkinlik Takvimi' => 'Event Calendar',
+        '%s Etkinlik Takvimi' => '%s Event Calendar',
+        'Kongreler' => 'Congresses',
+        'Etkinlikler' => 'Events',
+        'Yıl:' => 'Year:',
+        'YÄ±l:' => 'Year:',
+        'Takvim Görünümü' => 'Calendar View',
+        'Takvim GÃ¶rÃ¼nÃ¼mÃ¼' => 'Calendar View',
+        'Liste Görünümü' => 'List View',
+        'Liste GÃ¶rÃ¼nÃ¼mÃ¼' => 'List View',
+        'Detaylı Bilgi' => 'More Information',
+        'DetaylÄ± Bilgi' => 'More Information',
+        '%s yılı için etkinlik bulunamadı' => 'No events found for %s',
+        '%s yÄ±lÄ± iÃ§in etkinlik bulunamadÄ±' => 'No events found for %s',
+        'Başka bir yıl seçmeyi deneyin.' => 'Try selecting another year.',
+        'BaÅŸka bir yÄ±l seÃ§meyi deneyin.' => 'Try selecting another year.',
+        '%s Yılı Tüm Etkinlikleri' => 'All Events in %s',
+        '%s YÄ±lÄ± TÃ¼m Etkinlikleri' => 'All Events in %s',
+        '%s yılı için henüz etkinlik eklenmemiş.' => 'No events have been added for %s yet.',
+        '%s yÄ±lÄ± iÃ§in henÃ¼z etkinlik eklenmemiÅŸ.' => 'No events have been added for %s yet.',
+        'Adres' => 'Address',
+        'Telefon' => 'Phone',
+        'E-posta' => 'Email',
+        'Türkiye' => 'Turkey',
+        'Ocak' => 'January',
+        'Şubat' => 'February',
+        'Mart' => 'March',
+        'Nisan' => 'April',
+        'Mayıs' => 'May',
+        'Haziran' => 'June',
+        'Temmuz' => 'July',
+        'Ağustos' => 'August',
+        'Eylül' => 'September',
+        'Ekim' => 'October',
+        'Kasım' => 'November',
+        'Aralık' => 'December',
+        'Pzt' => 'Mon',
+        'Sal' => 'Tue',
+        'Çar' => 'Wed',
+        'Per' => 'Thu',
+        'Cum' => 'Fri',
+        'Cmt' => 'Sat',
+        'Paz' => 'Sun',
+    );
+
+    return $strings[$text] ?? $translation;
+}
+add_filter('gettext', 'artroplasti_force_english_theme_strings', 20, 3);
+
+function artroplasti_english_archive_title($title) {
+    if (function_exists('artroplasti_is_english_context') && artroplasti_is_english_context() && is_post_type_archive('events')) {
+        return __('Events', 'artroplasti');
+    }
+
+    return $title;
+}
+add_filter('get_the_archive_title', 'artroplasti_english_archive_title', 20);
+
+function artroplasti_english_document_title_parts($title) {
+    if (function_exists('artroplasti_is_english_context') && artroplasti_is_english_context() && is_post_type_archive('events')) {
+        $title['title'] = __('Events', 'artroplasti');
+    }
+
+    return $title;
+}
+add_filter('document_title_parts', 'artroplasti_english_document_title_parts', 20);
+
 // Enqueue scripts and styles
 function artroplasti_scripts() {
     // Main stylesheet
@@ -90,11 +261,11 @@ function artroplasti_scripts() {
     wp_enqueue_style('artroplasti-magnific', $theme_uri . '/assets/css/magnific-popup.css', array(), '1.0.0');
     wp_enqueue_style('artroplasti-owl', $theme_uri . '/assets/css/owl.carousel.min.css', array(), '1.0.0');
     wp_enqueue_style('artroplasti-owl-theme', $theme_uri . '/assets/css/owl.theme.default.min.css', array('artroplasti-owl'), '1.0.0');
-    wp_enqueue_style('artroplasti-template', $theme_uri . '/assets/css/style.css', array('artroplasti-bootstrap'), '1.0.0');
+    wp_enqueue_style('artroplasti-template', $theme_uri . '/assets/css/style.css', array('artroplasti-bootstrap'), '1.0.1');
     wp_enqueue_style('artroplasti-responsive', $theme_uri . '/assets/css/responsive.css', array('artroplasti-template'), '1.0.0');
 
     // Custom CSS
-    wp_enqueue_style('artroplasti-custom', $theme_uri . '/assets/css/custom.css', array('artroplasti-responsive'), '1.0.0');
+    wp_enqueue_style('artroplasti-custom', $theme_uri . '/assets/css/custom.css', array('artroplasti-responsive'), '1.0.7');
     
     // Owl Carousel JS
     wp_enqueue_script('artroplasti-owl', $theme_uri . '/assets/js/owl.carousel.min.js', array('jquery'), '2.3.4', true);

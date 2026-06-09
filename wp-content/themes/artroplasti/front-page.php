@@ -130,7 +130,7 @@ get_header();
          </div>
          <div class="row mt-4">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-               <a href="<?php echo esc_url(home_url('/haberler')); ?>" class="button-btn">
+               <a href="<?php echo esc_url(function_exists('pll_get_post') ? get_permalink(pll_get_post(24) ?: 24) : home_url('/haberler')); ?>" class="button-btn">
                   <?php echo esc_html__('Tüm Arşivi Görüntüle', 'artroplasti'); ?>
                   <span><i class="fas fa-angle-double-right"></i></span>
                </a>
@@ -248,13 +248,13 @@ get_header();
                   
                   // Ay adları
                   $months_tr = array(
-                     1 => 'Ocak', 2 => 'Şubat', 3 => 'Mart', 4 => 'Nisan',
-                     5 => 'Mayıs', 6 => 'Haziran', 7 => 'Temmuz', 8 => 'Ağustos',
-                     9 => 'Eylül', 10 => 'Ekim', 11 => 'Kasım', 12 => 'Aralık'
+                     1 => __('Ocak', 'artroplasti'), 2 => __('Şubat', 'artroplasti'), 3 => __('Mart', 'artroplasti'), 4 => __('Nisan', 'artroplasti'),
+                     5 => __('Mayıs', 'artroplasti'), 6 => __('Haziran', 'artroplasti'), 7 => __('Temmuz', 'artroplasti'), 8 => __('Ağustos', 'artroplasti'),
+                     9 => __('Eylül', 'artroplasti'), 10 => __('Ekim', 'artroplasti'), 11 => __('Kasım', 'artroplasti'), 12 => __('Aralık', 'artroplasti')
                   );
-                  
+
                   // Gün adları kısaltmaları
-                  $days_tr = array('Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz');
+                  $days_tr = array(__('Pzt', 'artroplasti'), __('Sal', 'artroplasti'), __('Çar', 'artroplasti'), __('Per', 'artroplasti'), __('Cum', 'artroplasti'), __('Cmt', 'artroplasti'), __('Paz', 'artroplasti'));
                   
                   // Takvim hesaplamaları
                   $first_day_of_month = mktime(0, 0, 0, $current_month, 1, $current_year);
@@ -332,7 +332,7 @@ get_header();
                      </h5>
                      
                      <div class="year-selector" style="min-width: 150px;">
-                        <select id="year-select" onchange="var currentMonth = new URLSearchParams(window.location.search).get('month') || '<?php echo $current_month; ?>'; window.location.href = '<?php echo esc_url(home_url('/etkinlik-takvimi')); ?>?month=' + currentMonth + '&year=' + this.value;" style="padding: 8px 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; cursor: pointer; width: 100%;">
+                        <select id="year-select" onchange="var currentMonth = new URLSearchParams(window.location.search).get('month') || '<?php echo $current_month; ?>'; window.location.href = '<?php echo esc_url(function_exists("pll_get_post") ? get_permalink(pll_get_post(38) ?: 38) : home_url("/etkinlik-takvimi")); ?>?month=' + currentMonth + '&year=' + this.value;" style="padding: 8px 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; cursor: pointer; width: 100%;">
                            <?php for ($y = 2025; $y <= 2030; $y++): ?>
                               <option value="<?php echo $y; ?>" <?php selected($current_year, $y); ?>><?php echo $y; ?></option>
                            <?php endfor; ?>
@@ -343,7 +343,7 @@ get_header();
                   <!-- Ay Seçme Tabları -->
                   <div class="month-tabs" style="display: flex; gap:5px; flex-wrap: wrap; justify-content: center;">
                         <?php foreach ($months_tr as $month_num => $month_name): 
-                           $month_url = add_query_arg(array('month' => $month_num, 'year' => $current_year), home_url('/etkinlik-takvimi'));
+                           $month_url = add_query_arg(array('month' => $month_num, 'year' => $current_year), function_exists('pll_get_post') ? get_permalink(pll_get_post(38) ?: 38) : home_url('/etkinlik-takvimi'));
                         ?>
                            <a href="<?php echo esc_url($month_url); ?>" 
                               class="month-tab <?php echo $month_num == $current_month ? 'active' : ''; ?>"
@@ -406,7 +406,7 @@ get_header();
             </div>
             <div class="row mt-4">
                <div class="col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-                  <a href="<?php echo esc_url(home_url('/etkinlik-takvimi')); ?>" class="button-btn" style="color:white;">
+                  <a href="<?php echo esc_url(function_exists('pll_get_post') ? get_permalink(pll_get_post(38) ?: 38) : home_url('/etkinlik-takvimi')); ?>" class="button-btn" style="color:white;">
                      <?php echo esc_html__('Tam Takvimi Gör', 'artroplasti'); ?>
                      <span><i class="fas fa-calendar-alt"></i></span>
                   </a>

@@ -4,6 +4,8 @@
  */
 
 get_header();
+
+$is_en = function_exists('pll_current_language') && pll_current_language() === 'en';
 ?>
 
 <!-- breadcrumb  start-->
@@ -13,10 +15,10 @@ get_header();
          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="sb-contact-section">
                <nav aria-label="breadcrumb">
-                  <h4><?php echo esc_html__('Webinarlar', 'artroplasti'); ?></h4>
+                  <h4><?php echo $is_en ? 'Webinars' : 'Webinarlar'; ?></h4>
                   <ol class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html__('Anasayfa', 'artroplasti'); ?></a></li>
-                     <li class="breadcrumb-item active" aria-current="page"><?php echo esc_html__('Webinarlar', 'artroplasti'); ?></li>
+                     <li class="breadcrumb-item"><a href="<?php echo esc_url(home_url('/')); ?>"><?php echo $is_en ? 'Home' : 'Anasayfa'; ?></a></li>
+                     <li class="breadcrumb-item active" aria-current="page"><?php echo $is_en ? 'Webinars' : 'Webinarlar'; ?></li>
                   </ol>
                </nav>
             </div>
@@ -63,10 +65,10 @@ get_header();
                   <div class="col-lg-12">
                      <div style="display: none;">
                         <?php foreach ($years as $year) : ?>
-                           <a href="<?php echo esc_url(add_query_arg('yil', $year)); ?>" 
-                              class="button-btn" 
+                           <a href="<?php echo esc_url(add_query_arg('yil', $year)); ?>"
+                              class="button-btn"
                               style="<?php echo ($selected_year == $year) ? 'background: #B81838; color: white;' : 'background: #f5f5f5; color: #333; border: 1px solid #ddd;'; ?> text-decoration: none; display: inline-block; padding: 12px 25px; border-radius: 8px; transition: all 0.3s;">
-                              <?php echo esc_html($year . ' ' . __('EĞİTİM WEBİNARLARI', 'artroplasti')); ?>
+                              <?php echo esc_html($year . ' ' . ($is_en ? 'EDUCATIONAL WEBINARS' : 'EĞİTİM WEBİNARLARI')); ?>
                            </a>
                         <?php endforeach; ?>
                      </div>
@@ -107,7 +109,7 @@ get_header();
                               </h3>
                            </div>
                            <a href="<?php echo esc_url(get_permalink()); ?>" class="button-btn py-2 px-4 h-auto line-height-normal" style="display: inline-block; white-space: nowrap;">
-                              <?php echo esc_html__('Detaylar', 'artroplasti'); ?>
+                              <?php echo $is_en ? 'Details' : 'Detaylar'; ?>
                            </a>
                         </div>
                      </div>
@@ -115,10 +117,10 @@ get_header();
                      }
                      wp_reset_postdata();
                   } else {
-                     echo '<p class="text-center">' . esc_html__('Bu yılda webinar bulunamadı.', 'artroplasti') . '</p>';
+                     echo '<p class="text-center">' . esc_html($is_en ? 'No webinars found for this year.' : 'Bu yılda webinar bulunamadı.') . '</p>';
                   }
                } else {
-                  echo '<p class="text-center">' . esc_html__('Webinar bulunamadı.', 'artroplasti') . '</p>';
+                  echo '<p class="text-center">' . esc_html($is_en ? 'No webinars found.' : 'Webinar bulunamadı.') . '</p>';
                }
                ?>
             </div>
@@ -126,7 +128,7 @@ get_header();
 
          <div class="col-lg-4 col-md-12 col-sm-12 col-12">
             <div class="webinar-sidebar" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-               <h6 style="margin-bottom: 20px; font-size: 16px; font-weight: 600; text-transform: uppercase;"><?php echo esc_html__('Eğitim Yılları', 'artroplasti'); ?></h6>
+               <h6 style="margin-bottom: 20px; font-size: 16px; font-weight: 600; text-transform: uppercase;"><?php echo $is_en ? 'Education Years' : 'Eğitim Yılları'; ?></h6>
                <div style="display: flex; flex-direction: column; gap: 8px;">
                   <?php foreach ($years as $year) : ?>
                      <a href="<?php echo esc_url(add_query_arg('yil', $year)); ?>" 

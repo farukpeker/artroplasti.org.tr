@@ -1,0 +1,609 @@
+# English (UK) translation for the Artroplasti theme
+# Copyright (C) 2026 KADAD
+# This file is distributed under the same license as the Artroplasti theme.
+msgid ""
+msgstr ""
+"Project-Id-Version: Artroplasti 1.0\n"
+"PO-Revision-Date: 2026-06-09 00:00+0000\n"
+"Last-Translator: KADAD <info@artroplasti.org.tr>\n"
+"Language-Team: English\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Front-page / navigation
+msgid "Anasayfa"
+msgstr "Home"
+
+msgid "Haberler"
+msgstr "News"
+
+msgid "Kongreler"
+msgstr "Congresses"
+
+msgid "Kurslar"
+msgstr "Courses"
+
+msgid "Webinarlar"
+msgstr "Webinars"
+
+msgid "Etkinlikler"
+msgstr "Events"
+
+msgid "Etkinlik Takvimi"
+msgstr "Event Calendar"
+
+msgid "Eğitim Yılları"
+msgstr "Education Years"
+
+# Buttons & links
+msgid "Devamı"
+msgstr "Read More"
+
+msgid "Devamını Oku"
+msgstr "Read More"
+
+msgid "İncele"
+msgstr "View"
+
+msgid "Detay"
+msgstr "Detail"
+
+msgid "Detaylar"
+msgstr "Details"
+
+msgid "Detaylı Bilgi"
+msgstr "More Information"
+
+msgid "Detaylı Bilgi İçin"
+msgstr "For More Information"
+
+msgid "Detayları Gör"
+msgstr "View Details"
+
+msgid "Görüntüle"
+msgstr "View"
+
+msgid "Gönder"
+msgstr "Send"
+
+msgid "Tüm Arşivi Görüntüle"
+msgstr "View Full Archive"
+
+msgid "Tüm Kurslar"
+msgstr "All Courses"
+
+msgid "Tüm Webinarlar"
+msgstr "All Webinars"
+
+msgid "Tüm Etkinlikler"
+msgstr "All Events"
+
+msgid "Takvimi Görüntüle"
+msgstr "View Calendar"
+
+msgid "Tam Takvimi Gör"
+msgstr "View Full Calendar"
+
+msgid "Ana Sayfaya Dön"
+msgstr "Back to Home"
+
+msgid "Anasayfaya Dön"
+msgstr "Back to Home"
+
+msgid "Geri Dön"
+msgstr "Go Back"
+
+msgid "PDF İndir"
+msgstr "Download PDF"
+
+# Sections / headings
+msgid "EĞİTİM WEBİNARLARI"
+msgstr "EDUCATION WEBINARS"
+
+msgid "Haberler, Duyurular ve Güncellemeler"
+msgstr "News, Announcements and Updates"
+
+msgid "Gelecek Kongremiz"
+msgstr "Our Upcoming Congress"
+
+msgid "Sizin için Seçtiklerimiz"
+msgstr "Our Selection for You"
+
+msgid "Son Haberler"
+msgstr "Latest News"
+
+msgid "Site Haritası"
+msgstr "Site Map"
+
+msgid "Son Yazılar"
+msgstr "Recent Posts"
+
+msgid "Diğer Kurslar"
+msgstr "Other Courses"
+
+msgid "Aynı Yıldan Diğer Webinarlar"
+msgstr "Other Webinars from the Same Year"
+
+msgid "Yaklaşan Etkinlikler"
+msgstr "Upcoming Events"
+
+msgid "Eğitim Webinarı"
+msgstr "Education Webinar"
+
+# Table / archive labels
+msgid "Tarih"
+msgstr "Date"
+
+msgid "Tarih:"
+msgstr "Date:"
+
+msgid "Yer"
+msgstr "Location"
+
+msgid "Yer:"
+msgstr "Location:"
+
+msgid "Yıl:"
+msgstr "Year:"
+
+msgid "Yıl"
+msgstr "Year"
+
+msgid "Yıl Seçiniz"
+msgstr "Select Year"
+
+msgid "Web Sitesi"
+msgstr "Website"
+
+msgid "Web sitesi"
+msgstr "Website"
+
+msgid "Kongre Programı"
+msgstr "Congress Programme"
+
+msgid "Program & Detay"
+msgstr "Programme & Details"
+
+msgid "Takvim Görünümü"
+msgstr "Calendar View"
+
+msgid "Liste Görünümü"
+msgstr "List View"
+
+# Calendar / events
+msgid "Tüm etkinlikleri takvim görünümünde inceleyin"
+msgstr "View all events in calendar format"
+
+msgid "Yaklaşan etkinlik bulunmamaktadır."
+msgstr "No upcoming events."
+
+# Contact form
+msgid "İletişim Formu"
+msgstr "Contact Form"
+
+msgid "İletişim Formu Mesajı"
+msgstr "Contact Form Message"
+
+msgid "Ad Soyad"
+msgstr "Full Name"
+
+msgid "E-posta"
+msgstr "Email"
+
+msgid "E-posta adresi"
+msgstr "Email address"
+
+msgid "Konu"
+msgstr "Subject"
+
+msgid "Mesajınız"
+msgstr "Your Message"
+
+msgid "Telefon"
+msgstr "Phone"
+
+msgid "Adres"
+msgstr "Address"
+
+msgid "Çalışma Saatleri"
+msgstr "Working Hours"
+
+msgid "Bültene Kaydol"
+msgstr "Subscribe to Newsletter"
+
+msgid "Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapacağız."
+msgstr "Your message has been sent successfully. We will get back to you as soon as possible."
+
+msgid "Güvenlik doğrulaması başarısız. Lütfen tekrar deneyin."
+msgstr "Security verification failed. Please try again."
+
+msgid "Lütfen tüm zorunlu alanları doldurun."
+msgstr "Please fill in all required fields."
+
+msgid "Geçerli bir e-posta adresi girin."
+msgstr "Please enter a valid email address."
+
+msgid "Mesaj gönderilemedi. Lütfen tekrar deneyin."
+msgstr "Message could not be sent. Please try again."
+
+# 404 page
+msgid "404 - Sayfa Bulunamadı"
+msgstr "404 - Page Not Found"
+
+msgid "404"
+msgstr "404"
+
+msgid "Üzgünüz, Sayfa Bulunamadı!"
+msgstr "Sorry, Page Not Found!"
+
+msgid "Aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanılamıyor olabilir."
+msgstr "The page you are looking for may have been removed, renamed, or is temporarily unavailable."
+
+msgid "Belki Aramak İstersiniz?"
+msgstr "Maybe you want to search?"
+
+msgid "Arama yapın..."
+msgstr "Search..."
+
+# Search
+msgid "Arama"
+msgstr "Search"
+
+msgid "Arama yap"
+msgstr "Search"
+
+msgid "Arama Sonuçları: %s"
+msgstr "Search Results: %s"
+
+msgid "Sonuç Bulunamadı"
+msgstr "No Results Found"
+
+# Empty state messages
+msgid "Henüz içerik bulunamadı."
+msgstr "No content found yet."
+
+msgid "Henüz kongre bulunamadı."
+msgstr "No congresses found yet."
+
+msgid "Henüz kurs bulunamadı."
+msgstr "No courses found yet."
+
+msgid "Bu yılda webinar bulunamadı."
+msgstr "No webinars found for this year."
+
+msgid "Webinar bulunamadı."
+msgstr "No webinars found."
+
+msgid "Henüz blog yazısı eklenmemiş."
+msgstr "No blog posts have been added yet."
+
+msgid "Henüz kurs eklenmemiş."
+msgstr "No courses have been added yet."
+
+msgid "Henüz içerik eklenmemiş."
+msgstr "No content has been added yet."
+
+msgid "%s yılı için etkinlik bulunamadı"
+msgstr "No events found for %s"
+
+msgid "Başka bir yıl seçmeyi deneyin."
+msgstr "Try selecting another year."
+
+msgid "%s yılı için henüz etkinlik eklenmemiş."
+msgstr "No events have been added for %s yet."
+
+# Menu registration (admin)
+msgid "Ana Menü"
+msgstr "Primary Menu"
+
+msgid "Alt Menü"
+msgstr "Secondary Menu"
+
+# Customizer (admin)
+msgid "Footer Logo"
+msgstr "Footer Logo"
+
+msgid "İletişim Bilgileri"
+msgstr "Contact Information"
+
+msgid "Skype"
+msgstr "Skype"
+
+msgid "İletişim Sayfası URL"
+msgstr "Contact Page URL"
+
+msgid "Sosyal Medya"
+msgstr "Social Media"
+
+msgid "Sidebar"
+msgstr "Sidebar"
+
+msgid "Ana sidebar widget alanı"
+msgstr "Main sidebar widget area"
+
+msgid "Footer 1"
+msgstr "Footer 1"
+
+msgid "Footer birinci alan"
+msgstr "Footer first area"
+
+msgid "Footer 2"
+msgstr "Footer 2"
+
+msgid "Footer ikinci alan"
+msgstr "Footer second area"
+
+msgid "Footer 3"
+msgstr "Footer 3"
+
+msgid "Footer üçüncü alan"
+msgstr "Footer third area"
+
+# Metaboxes (admin)
+msgid "Slider Buton Ayarları"
+msgstr "Slider Button Settings"
+
+msgid "Buton Metni"
+msgstr "Button Text"
+
+msgid "Buton URL"
+msgstr "Button URL"
+
+msgid "Manuel Tarih (İsteğe Bağlı)"
+msgstr "Manual Date (Optional)"
+
+msgid "Manuel Tarih (Örn: 13-14 Şubat 2026)"
+msgstr "Manual Date (e.g. 13-14 February 2026)"
+
+msgid "13-14 Şubat 2026"
+msgstr "13-14 February 2026"
+
+msgid "Boş bırakılırsa yazının yayınlanma tarihi kullanılır."
+msgstr "If left empty, the post publication date will be used."
+
+msgid "PDF Dosyası (İsteğe Bağlı)"
+msgstr "PDF File (Optional)"
+
+msgid "PDF Dosyası (İsteğe Bağlı):"
+msgstr "PDF File (Optional):"
+
+msgid "PDF URL"
+msgstr "PDF URL"
+
+msgid "PDF Seç / Yükle"
+msgstr "Select / Upload PDF"
+
+msgid "Boş bırakılırsa PDF butonu görünmez."
+msgstr "If left empty, the PDF button will not be shown."
+
+msgid "PDF Seç"
+msgstr "Select PDF"
+
+msgid "Seç"
+msgstr "Select"
+
+msgid "Kongre Bilgileri"
+msgstr "Congress Information"
+
+msgid "Mart-Nisan 2027"
+msgstr "March-April 2027"
+
+msgid "Antalya, Türkiye"
+msgstr "Antalya, Turkey"
+
+msgid "Toplantı Web Sitesi URL"
+msgstr "Meeting Website URL"
+
+msgid "Toplantı Web Sitesi Buton Metni"
+msgstr "Meeting Website Button Text"
+
+msgid "Toplantı Web Sitesi (Yakında)"
+msgstr "Meeting Website (Coming Soon)"
+
+msgid "Kongre Programı URL"
+msgstr "Congress Programme URL"
+
+msgid "Kongre Programı Buton Metni"
+msgstr "Congress Programme Button Text"
+
+msgid "Kongre Programı (Yakında)"
+msgstr "Congress Programme (Coming Soon)"
+
+msgid "Web Sitesi URL"
+msgstr "Website URL"
+
+msgid "Web Sitesi Buton Metni"
+msgstr "Website Button Text"
+
+msgid "Kurs Dış Link"
+msgstr "Course External Link"
+
+msgid "Dış Link (İncele Butonu)"
+msgstr "External Link (View Button)"
+
+msgid "Boş bırakılırsa kurs detay sayfası açılır."
+msgstr "If left empty, the course detail page will open."
+
+msgid "Link Ayarları"
+msgstr "Link Settings"
+
+msgid "Link Tipi:"
+msgstr "Link Type:"
+
+msgid "İç Sayfa (WordPress Sayfası)"
+msgstr "Internal Page (WordPress Page)"
+
+msgid "Dış Bağlantı (Harici URL)"
+msgstr "External Link (External URL)"
+
+msgid "Sayfa Seç:"
+msgstr "Select Page:"
+
+msgid "-- Sayfa Seçin --"
+msgstr "-- Select Page --"
+
+msgid "Dış Bağlantı:"
+msgstr "External Link:"
+
+msgid "Webinar Bilgileri"
+msgstr "Webinar Information"
+
+# Events custom post type labels (admin)
+msgid "Etkinlik"
+msgstr "Event"
+
+msgid "Etkinlik Arşivi"
+msgstr "Event Archive"
+
+msgid "Etkinlik Özellikleri"
+msgstr "Event Attributes"
+
+msgid "Üst Etkinlik:"
+msgstr "Parent Event:"
+
+msgid "Yeni Etkinlik Ekle"
+msgstr "Add New Event"
+
+msgid "Yeni Ekle"
+msgstr "Add New"
+
+msgid "Yeni Etkinlik"
+msgstr "New Event"
+
+msgid "Etkinliği Düzenle"
+msgstr "Edit Event"
+
+msgid "Etkinliği Güncelle"
+msgstr "Update Event"
+
+msgid "Etkinliği Görüntüle"
+msgstr "View Event"
+
+msgid "Etkinlikleri Görüntüle"
+msgstr "View Events"
+
+msgid "Etkinlik Ara"
+msgstr "Search Events"
+
+msgid "Etkinlik bulunamadı"
+msgstr "No events found"
+
+msgid "Çöp kutusunda etkinlik bulunamadı"
+msgstr "No events found in trash"
+
+msgid "Etkinlik Detayları"
+msgstr "Event Details"
+
+msgid "Başlangıç Tarihi:"
+msgstr "Start Date:"
+
+msgid "Bitiş Tarihi:"
+msgstr "End Date:"
+
+msgid "Konum:"
+msgstr "Location:"
+
+msgid "Etkinlik Türü:"
+msgstr "Event Type:"
+
+msgid "Seçiniz"
+msgstr "Select"
+
+msgid "Kurs"
+msgstr "Course"
+
+msgid "Kongre"
+msgstr "Congress"
+
+msgid "Toplantı"
+msgstr "Meeting"
+
+msgid "Sempozyum"
+msgstr "Symposium"
+
+# Month names
+msgid "Ocak"
+msgstr "January"
+
+msgid "Şubat"
+msgstr "February"
+
+msgid "Mart"
+msgstr "March"
+
+msgid "Nisan"
+msgstr "April"
+
+msgid "Mayıs"
+msgstr "May"
+
+msgid "Haziran"
+msgstr "June"
+
+msgid "Temmuz"
+msgstr "July"
+
+msgid "Ağustos"
+msgstr "August"
+
+msgid "Eylül"
+msgstr "September"
+
+msgid "Ekim"
+msgstr "October"
+
+msgid "Kasım"
+msgstr "November"
+
+msgid "Aralık"
+msgstr "December"
+
+# Day abbreviations (Mon–Sun)
+msgid "Pzt"
+msgstr "Mon"
+
+msgid "Sal"
+msgstr "Tue"
+
+msgid "Çar"
+msgstr "Wed"
+
+msgid "Per"
+msgstr "Thu"
+
+msgid "Cum"
+msgstr "Fri"
+
+msgid "Cmt"
+msgstr "Sat"
+
+msgid "Paz"
+msgstr "Sun"
+
+# Header login/logout
+msgid "Çıkış Yap"
+msgstr "Log Out"
+
+msgid "Giriş Yap"
+msgstr "Log In"
+
+# Footer newsletter description
+msgid "Güncel haberleri ve duyuruları almak için e-habere abone olun. Yeni gelişmelerden haberdar olun."
+msgstr "Subscribe to receive the latest news and announcements. Stay informed about new developments."
+
+# Calendar year headings
+msgid "%s Etkinlik Takvimi"
+msgstr "%s Event Calendar"
+
+msgid "%s Yılı Tüm Etkinlikleri"
+msgstr "All Events of %s"
+
+# Footer legal links
+msgid "Gizlilik Politikası"
+msgstr "Privacy Policy"
+
+msgid "Kullanım Koşulları"
+msgstr "Terms and Conditions"

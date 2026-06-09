@@ -6,7 +6,7 @@
 get_header();
 
 // Yıl filtresi
-$selected_year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
+$selected_year = isset($_GET['event_year']) ? intval($_GET['event_year']) : (isset($_GET['year']) ? intval($_GET['year']) : date('Y'));
 ?>
 
 <!-- breadcrumb start-->
@@ -38,7 +38,7 @@ $selected_year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
             <div class="col-lg-6 col-md-6">
                <div class="year-filter">
                   <label for="year-filter" style="margin-right: 10px; font-weight: 600;"><?php _e('Yıl:', 'artroplasti'); ?></label>
-                  <select id="year-filter" class="form-control" style="width: auto; display: inline-block;" onchange="window.location.href='?year='+this.value">
+                  <select id="year-filter" class="form-control" style="width: auto; display: inline-block;" onchange="window.location.href='?event_year='+this.value">
                      <?php for ($y = 2025; $y <= 2030; $y++): ?>
                         <option value="<?php echo $y; ?>" <?php selected($selected_year, $y); ?>><?php echo $y; ?></option>
                      <?php endfor; ?>
@@ -109,6 +109,14 @@ $selected_year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
                 );
 
                 // Her ay için etkinlikleri göster
+                if (function_exists('artroplasti_is_english_context') && artroplasti_is_english_context()) {
+                    $months_tr = array(
+                        1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',
+                        5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August',
+                        9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'
+                    );
+                }
+
                 ksort($events_by_month);
                 foreach ($events_by_month as $month => $event_ids) :
                     ?>

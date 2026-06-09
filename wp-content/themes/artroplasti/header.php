@@ -68,8 +68,12 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-none d-md-block">
-                        <form class="d-flex justify-content-end ps-rel my-1 rounded" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
-                            <input class="" type="search" name="s" placeholder="Arama yap" value="<?php echo esc_attr(get_search_query()); ?>" aria-label="Search">
+                        <?php
+                        $search_lang = function_exists('pll_current_language') ? pll_current_language('slug') : '';
+                        $search_action = ($search_lang && function_exists('pll_home_url')) ? pll_home_url($search_lang) : home_url('/');
+                        ?>
+                        <form class="d-flex justify-content-end ps-rel my-1 rounded" role="search" method="get" action="<?php echo esc_url($search_action); ?>">
+                            <input class="" type="search" name="s" placeholder="<?php echo esc_attr__('Arama yap', 'artroplasti'); ?>" value="<?php echo esc_attr(get_search_query()); ?>" aria-label="Search">
                             <button type="submit" class="border-0" aria-label="Search">
                                 <span><i class="fas fa-search"></i></span>
                             </button>
@@ -106,9 +110,19 @@
                                 <li class="login-btn">
                                     <span>
                                         <?php if (is_user_logged_in()) : ?>
-                                            <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>">Çıkış Yap</a>
+                                            <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>"><?php echo esc_html__('Çıkış Yap', 'artroplasti'); ?></a>
                                         <?php else : ?>
-                                            <a href="<?php echo esc_url(home_url('/giris-yap')); ?>">Giriş Yap</a>
+                                            <?php
+                                            $login_page_id = 0;
+                                            if (function_exists('pll_get_post')) {
+                                                $tr_login_page = get_page_by_path('giris-yap');
+                                                if ($tr_login_page) {
+                                                    $login_page_id = pll_get_post($tr_login_page->ID) ?: $tr_login_page->ID;
+                                                }
+                                            }
+                                            $login_url = $login_page_id ? get_permalink($login_page_id) : home_url('/giris-yap');
+                                            ?>
+                                            <a href="<?php echo esc_url($login_url); ?>"><?php echo esc_html__('Giriş Yap', 'artroplasti'); ?></a>
                                         <?php endif; ?>
                                     </span>
                                 </li>
@@ -143,59 +157,21 @@
                                     'fallback_cb'    => false,
                                 ));
                                 ?>
-                                <!-- Language Selector -->
-                                <div class="language-selector">
-                                    <button class="language-toggle" aria-label="Dil Seçimi">
-                                        <i class="fas fa-globe"></i>
-                                        <span class="language-code">
-                                            <?php
-                                            $locale = get_locale();
-                                            if (strpos($locale, 'tr') !== false) {
-                                                echo 'TR';
-                                            } elseif (strpos($locale, 'en') !== false) {
-                                                echo 'EN';
-                                            } else {
-                                                echo substr(strtoupper($locale), 0, 2);
-                                            }
-                                            ?>
-                                        </span>
-                                    </button>
-                                    <div class="language-dropdown">
-                                        <?php
-                                        // WPML Support
-                                        if (defined('ICL_LANGUAGE_CODE')) {
-                                            do_action('wpml_add_language_selector');
-                                        } 
-                                        // Polylang Support
-                                        elseif (function_exists('pll_the_languages')) {
-                                            echo '<ul class="language-list">';
-                                            pll_the_languages(array('show_flags' => 1, 'show_names' => 1));
-                                            echo '</ul>';
+                                <!-- Language Switcher -->
+                                <div class="lang-switcher">
+                                    <?php
+                                    if (function_exists('pll_the_languages')) {
+                                        $langs = pll_the_languages(array('raw' => 1));
+                                        foreach ($langs as $lang) {
+                                            $cls = $lang['current_lang'] ? 'lang-btn-active' : 'lang-btn-inactive';
+                                            echo '<a href="' . esc_url($lang['url']) . '" class="lang-sw-btn ' . $cls . '" hreflang="' . esc_attr($lang['slug']) . '">' . strtoupper($lang['slug']) . '</a>';
                                         }
-                                        // Fallback: Simple language switcher
-                                        else {
-                                            $languages = array(
-                                                'tr' => array('name' => 'Türkçe', 'url' => home_url('/')),
-                                                'en' => array('name' => 'English', 'url' => home_url('/en/')),
-                                            );
-                                            ?>
-                                            <ul class="language-list">
-                                                <?php foreach ($languages as $code => $lang) : 
-                                                    $current_locale = strtolower(get_locale());
-                                                    $is_active = (strpos($current_locale, $code) === 0);
-                                                ?>
-                                                    <li>
-                                                        <a href="<?php echo esc_url($lang['url']); ?>" 
-                                                           <?php echo $is_active ? 'class="active"' : ''; ?>>
-                                                            <?php echo esc_html($lang['name']); ?>
-                                                        </a>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                            <?php
-                                        }
-                                        ?>
-                                    </div>
+                                    } else {
+                                        $cur = function_exists('pll_current_language') ? pll_current_language('slug') : substr(get_locale(), 0, 2);
+                                        echo '<a href="' . esc_url(home_url('/')) . '" class="lang-sw-btn ' . ($cur === 'tr' ? 'lang-btn-active' : 'lang-btn-inactive') . '">TR</a>';
+                                        echo '<a href="' . esc_url(home_url('/en/')) . '" class="lang-sw-btn ' . ($cur === 'en' ? 'lang-btn-active' : 'lang-btn-inactive') . '">EN</a>';
+                                    }
+                                    ?>
                                 </div>
                             </nav>
                         </div>
@@ -246,9 +222,11 @@
             <div id="toggle_close">&times;</div>
             <div id='cssmenu'>
                 <?php
+                $search_lang = function_exists('pll_current_language') ? pll_current_language('slug') : '';
+                $search_action = ($search_lang && function_exists('pll_home_url')) ? pll_home_url($search_lang) : home_url('/');
                 $mobile_menu_extra = '<li class="input-group border-none my-3 mx-2">'
-                    . '<form role="search" method="get" action="' . esc_url(home_url('/')) . '">' 
-                    . '<input type="search" name="s" class="form-control" placeholder="Arama yap" value="' . esc_attr(get_search_query()) . '" aria-label="Search">'
+                    . '<form role="search" method="get" action="' . esc_url($search_action) . '">' 
+                    . '<input type="search" name="s" class="form-control" placeholder="' . esc_attr__('Arama yap', 'artroplasti') . '" value="' . esc_attr(get_search_query()) . '" aria-label="Search">'
                     . '<button class="btn btn-outline-secondary" type="submit" id="button-addon2" aria-label="Search"><i class="fas fa-search"></i></button>'
                     . '</form>'
                     . '</li>'
@@ -278,12 +256,22 @@
                         <!-- Mobile Language Selector -->
             <div class="mobile-language-selector">
                 <?php
-                $current_locale = strtolower(get_locale());
-                $is_tr_active = (strpos($current_locale, 'tr') === 0);
-                $is_en_active = (strpos($current_locale, 'en') === 0);
+                if (function_exists('pll_the_languages')) {
+                    $langs = pll_the_languages(array('raw' => 1));
+                    foreach ($langs as $lang) {
+                        $active_class = $lang['current_lang'] ? ' active' : '';
+                        echo '<a href="' . esc_url($lang['url']) . '" class="lang-btn' . $active_class . '" hreflang="' . esc_attr($lang['slug']) . '">' . strtoupper($lang['slug']) . '</a>';
+                    }
+                } else {
+                    $current_locale = strtolower(get_locale());
+                    $is_tr_active = (strpos($current_locale, 'tr') === 0);
+                    $is_en_active = (strpos($current_locale, 'en') === 0);
+                    ?>
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="lang-btn <?php echo $is_tr_active ? 'active' : ''; ?>">TR</a>
+                    <a href="<?php echo esc_url(home_url('/en/')); ?>" class="lang-btn <?php echo $is_en_active ? 'active' : ''; ?>">EN</a>
+                    <?php
+                }
                 ?>
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="lang-btn <?php echo $is_tr_active ? 'active' : ''; ?>">TR</a>
-                <a href="<?php echo esc_url(home_url('/en/')); ?>" class="lang-btn <?php echo $is_en_active ? 'active' : ''; ?>">EN</a>
             </div>
 
         </div>

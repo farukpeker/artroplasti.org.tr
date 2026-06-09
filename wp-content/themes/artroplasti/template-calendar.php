@@ -36,13 +36,13 @@ if ($next_month > 12) {
 
 // Ay adları
 $months_tr = array(
-    1 => 'Ocak', 2 => 'Şubat', 3 => 'Mart', 4 => 'Nisan',
-    5 => 'Mayıs', 6 => 'Haziran', 7 => 'Temmuz', 8 => 'Ağustos',
-    9 => 'Eylül', 10 => 'Ekim', 11 => 'Kasım', 12 => 'Aralık'
+    1 => __('Ocak', 'artroplasti'), 2 => __('Şubat', 'artroplasti'), 3 => __('Mart', 'artroplasti'), 4 => __('Nisan', 'artroplasti'),
+    5 => __('Mayıs', 'artroplasti'), 6 => __('Haziran', 'artroplasti'), 7 => __('Temmuz', 'artroplasti'), 8 => __('Ağustos', 'artroplasti'),
+    9 => __('Eylül', 'artroplasti'), 10 => __('Ekim', 'artroplasti'), 11 => __('Kasım', 'artroplasti'), 12 => __('Aralık', 'artroplasti')
 );
 
 // Gün adları kısaltmaları
-$days_tr = array('Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz');
+$days_tr = array(__('Pzt', 'artroplasti'), __('Sal', 'artroplasti'), __('Çar', 'artroplasti'), __('Per', 'artroplasti'), __('Cum', 'artroplasti'), __('Cmt', 'artroplasti'), __('Paz', 'artroplasti'));
 
 // Ayın ilk ve son günü
 $first_day_of_month = mktime(0, 0, 0, $current_month, 1, $current_year);
@@ -165,10 +165,10 @@ if ($events_query->have_posts()) {
         <!-- Takvim Başlığı ve Yıl Seçici -->
         <div class="calendar-header">
             <div class="calendar-year-title">
-                <h2><?php echo $current_year; ?> Etkinlik Takvimi</h2>
+                <h2><?php printf(esc_html__('%s Etkinlik Takvimi', 'artroplasti'), $current_year); ?></h2>
             </div>
             <div class="calendar-actions">
-                <a href="<?php echo get_post_type_archive_link('events'); ?>" class="btn btn-outline">
+                <a href="<?php echo esc_url((function_exists('artroplasti_is_english_context') && artroplasti_is_english_context()) ? home_url('/en/events/') : get_post_type_archive_link('events')); ?>" class="btn btn-outline">
                     <?php _e('Liste Görünümü', 'artroplasti'); ?>
                 </a>
                 <div class="year-selector">
@@ -253,7 +253,7 @@ if ($events_query->have_posts()) {
 
         <!-- Yıllık Etkinlik Listesi -->
         <div class="calendar-events-list">
-            <h3><?php echo $current_year; ?> Yılı Tüm Etkinlikleri</h3>
+            <h3><?php printf(esc_html__('%s Yılı Tüm Etkinlikleri', 'artroplasti'), $current_year); ?></h3>
             <?php if ($year_events_query->have_posts()): ?>
             <div class="events-list-items">
                 <?php

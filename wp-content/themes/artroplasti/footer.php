@@ -143,7 +143,7 @@ $footer_logo_alt = $footer_logo_id ? get_post_meta($footer_logo_id, '_wp_attachm
             <div id="newsletter">
                <h5><?php echo esc_html(__('Bültene Kaydol', 'artroplasti')); ?></h5>
                <div class="input-box">
-                <p class="newsletter-description">Güncel haberleri ve duyuruları almak için e-habere abone olun. Yeni gelişmelerden haberdar olun.</p>
+                <p class="newsletter-description"><?php echo esc_html__('Güncel haberleri ve duyuruları almak için e-habere abone olun. Yeni gelişmelerden haberdar olun.', 'artroplasti'); ?></p>
                   <form method="post" class="newsletter-form">
                      <?php wp_nonce_field('artroplasti_newsletter', 'newsletter_nonce'); ?>
                      <input type="email" name="newsletter_email" placeholder="<?php echo esc_attr(__('E-posta adresi', 'artroplasti')); ?>" required>
@@ -165,12 +165,30 @@ $footer_logo_alt = $footer_logo_id ? get_post_meta($footer_logo_id, '_wp_attachm
             <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                <p class="last-para">
                   <?php
-                  $privacy_page = get_privacy_policy_url();
-                  $privacy_link = $privacy_page ? '<a href="' . esc_url($privacy_page) . '">' . esc_html(__('Privacy Policy', 'artroplasti')) . '</a>' : esc_html(__('Privacy Policy', 'artroplasti'));
+                  // Privacy Policy — current-language aware
+                  $privacy_base_id = (int) get_option('wp_page_for_privacy_policy');
+                  if ($privacy_base_id && function_exists('pll_get_post')) {
+                      $privacy_id = pll_get_post($privacy_base_id) ?: $privacy_base_id;
+                  } else {
+                      $privacy_id = $privacy_base_id;
+                  }
+                  $privacy_url = $privacy_id ? get_permalink($privacy_id) : '';
+                  $privacy_link = $privacy_url
+                      ? '<a href="' . esc_url($privacy_url) . '">' . esc_html(__('Gizlilik Politikası', 'artroplasti')) . '</a>'
+                      : esc_html(__('Gizlilik Politikası', 'artroplasti'));
                   echo wp_kses_post($privacy_link);
+
+                  // Terms & Conditions — current-language aware
+                  $terms_base = get_page_by_path('terms-and-conditions');
+                  if ($terms_base && function_exists('pll_get_post')) {
+                      $terms_id = pll_get_post($terms_base->ID) ?: $terms_base->ID;
+                  } else {
+                      $terms_id = $terms_base ? $terms_base->ID : 0;
+                  }
+                  $terms_url = $terms_id ? get_permalink($terms_id) : home_url('/terms-and-conditions');
                   ?>
-                  | 
-                  <a href="<?php echo esc_url(home_url('/terms-and-conditions')); ?>"><?php echo esc_html(__('Terms and Conditions', 'artroplasti')); ?></a>
+                  |
+                  <a href="<?php echo esc_url($terms_url); ?>"><?php echo esc_html(__('Kullanım Koşulları', 'artroplasti')); ?></a>
                </p>
             </div>
             <div class="col-md-12 text-center">
