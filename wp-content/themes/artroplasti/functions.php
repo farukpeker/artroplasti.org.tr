@@ -888,6 +888,27 @@ function artroplasti_render_event_details_meta_box($post) {
         </select>
     </p>
     <?php
+    $event_pdf_url = get_post_meta($post->ID, 'event_pdf_url', true);
+    ?>
+    <p>
+        <label for="event_pdf_url"><strong><?php _e('PDF Dosyası (İsteğe Bağlı):', 'artroplasti'); ?></strong></label><br>
+        <input type="url" id="event_pdf_url" name="event_pdf_url" value="<?php echo esc_attr($event_pdf_url); ?>" style="width: 100%;" placeholder="https://">
+        <button type="button" class="button" id="event_pdf_btn" style="margin-top: 6px;"><?php _e('PDF Seç / Yükle', 'artroplasti'); ?></button>
+    </p>
+    <script>
+    jQuery(function($) {
+        $('#event_pdf_btn').on('click', function(e) {
+            e.preventDefault();
+            var frame = wp.media({ title: 'PDF Seç', button: { text: 'Seç' }, multiple: false });
+            frame.on('select', function() {
+                var att = frame.state().get('selection').first().toJSON();
+                $('#event_pdf_url').val(att.url);
+            });
+            frame.open();
+        });
+    });
+    </script>
+    <?php
 }
 
 // Save Events Meta Data
@@ -918,6 +939,10 @@ function artroplasti_save_event_meta($post_id) {
 
     if (isset($_POST['event_type'])) {
         update_post_meta($post_id, 'event_type', sanitize_text_field($_POST['event_type']));
+    }
+
+    if (isset($_POST['event_pdf_url'])) {
+        update_post_meta($post_id, 'event_pdf_url', esc_url_raw($_POST['event_pdf_url']));
     }
 }
 add_action('save_post_events', 'artroplasti_save_event_meta');

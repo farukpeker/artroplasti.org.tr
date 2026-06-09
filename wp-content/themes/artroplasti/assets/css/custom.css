@@ -28,7 +28,9 @@ body {
     --h5-font-size: 18px;
     --h6-font-size: 16px;
 }
-
+.footer-main-wrapper .sb-footer-section .footer-logo img {
+	height:auto;
+}
 
 /* Contact Page Styles */
 .form-main-wrapper {

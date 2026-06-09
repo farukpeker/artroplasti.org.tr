@@ -54,7 +54,7 @@ get_header();
                      <div class="blog-content">
                         <h2 class="p-0 h5"><?php echo esc_html(get_the_title()); ?></h2>
                         
-                        <div class="post-body">
+                        <div class="post-body pt-4">
                            <?php the_content(); ?>
                         </div>
 
@@ -108,14 +108,15 @@ get_header();
                                     if (empty($recent_image)) {
                                         $recent_image = artroplasti_default_thumb();
                                     }
+                                    $recent_manual_date = get_post_meta(get_the_ID(), 'blog_manual_date', true);
                             ?>
                             <div class="post-main-container hr-line">
-                                <div class="post-image me-3">
-                                    <img src="<?php echo esc_url($recent_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" style="width: 90px; height: 90px; object-fit: cover;">
+                                <div class="post-image">
+                                    <img src="<?php echo esc_url($recent_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                                 </div>
                                 <div class="post-container">
                                     <a href="<?php echo esc_url(get_permalink()); ?>" class="h6"><?php echo esc_html(get_the_title()); ?></a>
-                                    <p><?php echo esc_html(get_the_date('d M Y')); ?></p>
+                                    <p><?php echo esc_html($recent_manual_date ?: get_the_date('d F Y')); ?></p>
                                 </div>
                             </div>
                             <?php

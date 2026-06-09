@@ -46,18 +46,6 @@ get_header();
                $start_formatted = $event_start ? date_i18n('d F Y', strtotime($event_start)) : '';
                $end_formatted = $event_end ? date_i18n('d F Y', strtotime($event_end)) : '';
                
-               // Ayları Türkçeye çevir
-               $months_tr = array(
-                   'January' => 'Ocak', 'February' => 'Şubat', 'March' => 'Mart',
-                   'April' => 'Nisan', 'May' => 'Mayıs', 'June' => 'Haziran',
-                   'July' => 'Temmuz', 'August' => 'Ağustos', 'September' => 'Eylül',
-                   'October' => 'Ekim', 'November' => 'Kasım', 'December' => 'Aralık'
-               );
-               
-               foreach ($months_tr as $en => $tr) {
-                   $start_formatted = str_replace($en, $tr, $start_formatted);
-                   $end_formatted = str_replace($en, $tr, $end_formatted);
-               }
                ?>
                <div class="event-single-wrapper">
                   <!-- Event Header Image -->
@@ -117,6 +105,19 @@ get_header();
                   <div class="event-content" style="color: #666; line-height: 1.8; font-size: 16px;">
                      <?php the_content(); ?>
                   </div>
+
+                  <!-- PDF Download -->
+                  <?php
+                  $event_pdf_url = get_post_meta(get_the_ID(), 'event_pdf_url', true);
+                  if (!empty($event_pdf_url)) :
+                  ?>
+                  <div class="event-pdf-download" style="margin-top: 24px;">
+                     <a href="<?php echo esc_url($event_pdf_url); ?>" target="_blank" rel="noopener" class="button-btn" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;line-height:normal;height:auto;">
+                        <i class="fas fa-file-pdf"></i>
+                        <?php echo esc_html__('PDF İndir', 'artroplasti'); ?>
+                     </a>
+                  </div>
+                  <?php endif; ?>
 
                   <!-- Event Navigation -->
                   <div class="event-navigation" style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #eee;">
