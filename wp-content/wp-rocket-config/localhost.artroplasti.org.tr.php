@@ -1,10 +1,10 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$rocket_cookie_hash = '4890642967a31a12872f0856a896cd7a';
-$rocket_logged_in_cookie = 'wordpress_logged_in_4890642967a31a12872f0856a896cd7a';
+$rocket_cookie_hash = '1b15e159d3c1dd9e2b646e8ec3c896a9';
+$rocket_logged_in_cookie = 'wordpress_logged_in_1b15e159d3c1dd9e2b646e8ec3c896a9';
 $rocket_cache_mobile_files_tablet = 'desktop';
-$rocket_cache_reject_uri = '/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|/(index.php/)?(.*)wp-json(/.*|$)';
+$rocket_cache_reject_uri = '/artroplasti.org.tr(/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|/(index.php/)?(.*)wp-json(/.*|$))';
 $rocket_cache_reject_cookies = 'wordpress_logged_in_.+|wp-postpass_|wptouch_switch_toggle|comment_author_|comment_author_email_';
 $rocket_cache_reject_ua = 'facebookexternalhit|WhatsApp';
 $rocket_cache_query_strings = array();
